@@ -15,9 +15,19 @@ def histogram(source_text):
         adjusted_line = adjusted_line.lower()
         adjusted_str += adjusted_line
     word_list = adjusted_str.split(' ')
-    return word_list
+
+    # count occurrence of strings:
+    word_dict = {}
+    for each_str in word_list:
+        if each_str in word_dict:
+            word_dict[each_str] += 1
+        else:
+            word_dict[each_str] = 1
+    if '' in word_dict:
+        del word_dict['']
+    return word_dict
 
 
 if __name__ == '__main__':
-    my_arr = histogram("poker.txt")
-    print(my_arr)
+    my_dict = histogram("poker.txt")
+    print(my_dict)
