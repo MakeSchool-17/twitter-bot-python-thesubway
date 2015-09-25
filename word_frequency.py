@@ -28,6 +28,10 @@ def histogram(source_text):
     return word_dict
 
 
+def unique_words(input_histogram):
+    print(len(input_histogram.keys()))
+
+
 if __name__ == '__main__':
     my_dict = histogram("poker.txt")
-    print(my_dict)
+    unique_words(my_dict)
