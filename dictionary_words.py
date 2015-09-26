@@ -5,12 +5,9 @@ import random
 def get_dict_words(num_words):
     if num_words <= 0:
         return ""
-    my_file = open('words', 'r')
-    all_words = []
     final_arr = []
     final_str = ""
-    for line in my_file:
-        all_words.append(line)
+    all_words = get_dict_list()
     for i in range(0, num_words):
         my_rand_idx = random.randint(0, len(all_words)-1)
         current_word = all_words[my_rand_idx]
@@ -23,6 +20,14 @@ def get_dict_words(num_words):
     if num_words > 0:
         final_str = final_str[1:]
     return final_str
+
+
+def get_dict_list():
+    my_file = open('words', 'r')
+    all_words = []
+    for line in my_file:
+        all_words.append(line)
+    return all_words
 if __name__ == '__main__':
     my_sentence = get_dict_words(int(sys.argv[1]))
     print(my_sentence)
