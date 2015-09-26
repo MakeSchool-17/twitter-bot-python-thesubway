@@ -34,10 +34,14 @@ def unique_words(input_histogram):
 
 def frequency(word, input_histogram):
     if word in input_histogram:
-        print('is there')
+        return input_histogram[word]
     else:
-        print('not there')
+        return 0
 
 if __name__ == '__main__':
     my_dict = histogram("poker.txt")
     num_unique = unique_words(my_dict)
+    print("num unique: "+str(num_unique))
+    tested_word = "played"
+    frequency_result = frequency(tested_word, my_dict)
+    print(tested_word+": "+str(frequency_result))
