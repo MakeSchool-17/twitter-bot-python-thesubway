@@ -34,5 +34,5 @@ if __name__ == '__main__':
     # random_word = histogram_weighted_word(my_histogram)
     # print(random_word)
 
-    my_results = dan_hoang_helper.test_results_1_parameter(10000, histogram_weighted_word, my_histogram)
+    my_results = dan_hoang_helper.test_results_parameter(10000, histogram_weighted_word, my_histogram)
     print(my_results)
