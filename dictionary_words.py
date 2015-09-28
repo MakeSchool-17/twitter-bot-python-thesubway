@@ -11,9 +11,7 @@ def get_dict_words(num_words):
     for i in range(0, num_words):
         my_rand_idx = random.randint(0, len(all_words)-1)
         current_word = all_words[my_rand_idx]
-        # adjust word to remove the \n (last word also has \n)
-        adjusted_word = current_word[:-1]
-        final_arr.append(adjusted_word)
+        final_arr.append(current_word)
         all_words.remove(current_word)
     for each_word in final_arr:
         final_str += " " + each_word
@@ -26,7 +24,9 @@ def get_dict_list():
     my_file = open('words', 'r')
     all_words = []
     for line in my_file:
-        all_words.append(line)
+        # adjust word to remove the \n (last word also has \n)
+        adjusted_word = line[:-1]
+        all_words.append(adjusted_word)
     return all_words
 if __name__ == '__main__':
     my_sentence = get_dict_words(int(sys.argv[1]))
