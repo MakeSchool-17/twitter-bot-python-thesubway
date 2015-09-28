@@ -8,7 +8,7 @@ def histogram_word(input_histogram):
     input_keys = list(input_histogram.keys())
     if len(input_keys) == 0:
         return ""
-    my_num = random.randint(0, len(input_keys)-1)
+    my_num = random.randint(0, len(input_keys) - 1)
     return input_keys[my_num]
 
 
@@ -33,11 +33,6 @@ if __name__ == '__main__':
     # print(random_word)
     # random_word = histogram_weighted_word(my_histogram)
     # print(random_word)
-    my_results = {}
-    for value in range(10000):
-        result = histogram_weighted_word(my_histogram)
-        if result in my_results:
-            my_results[result] += 1
-        else:
-            my_results[result] = 1
+
+    my_results = dan_hoang_helper.test_results_1_parameter(10000, histogram_weighted_word, my_histogram)
     print(my_results)
