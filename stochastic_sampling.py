@@ -1,6 +1,7 @@
 import sys
 import word_frequency
 import random
+import dan_hoang_helper
 
 
 def histogram_word(input_histogram):
@@ -30,5 +31,13 @@ if __name__ == '__main__':
     my_histogram = word_frequency.histogram(my_file)
     # random_word = histogram_word(my_histogram)
     # print(random_word)
-    random_word = histogram_weighted_word(my_histogram)
-    print(random_word)
+    # random_word = histogram_weighted_word(my_histogram)
+    # print(random_word)
+    my_results = {}
+    for value in range(10000):
+        result = histogram_weighted_word(my_histogram)
+        if result in my_results:
+            my_results[result] += 1
+        else:
+            my_results[result] = 1
+    print(my_results)
