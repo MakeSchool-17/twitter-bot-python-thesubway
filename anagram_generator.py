@@ -4,11 +4,16 @@ import dictionary_words
 def anagram_generator(word):
     dict_list = dictionary_words.get_dict_list()
     real_words = []
-    input_arr = list(word)
+    all_combinations = retrieve_str_combinations(word)
+    for each_combination in all_combinations:
+        for each_word in dict_list:
+            if each_combination == each_word:
+                real_words.append(each_combination)
+                print("got here")
+                break
+    print(len(all_combinations))
     print(len(dict_list))
-    print(input_arr)
-    # to get every scramble. #tac act cat cta tca atc
-    combinations_arr = []
+    return real_words
 
 
 def retrieve_str_combinations(input_str):
@@ -34,4 +39,4 @@ def retrieve_str_combinations(input_str):
 
 if __name__ == '__main__':
     # anagram_generator('tacs')
-    print(retrieve_str_combinations('tac'))
+    print(anagram_generator('tac'))
