@@ -1,15 +1,5 @@
 def histogram(source_text):
-    my_file = open(source_text, "r")
-    # note: later code will set uppercase char to lowercase
-    aSet = list("abcdefghijklm' nopqrstuvwxyz")
-    adjusted_str = ''
-    for line in my_file:
-        current_line = line.replace("\n", ' ')
-        current_line = current_line.replace('-', ' ')
-        current_line = current_line.lower()
-        adjusted_line = ''.join(ch for ch in current_line if ch in aSet)
-        adjusted_str += adjusted_line
-    word_list = adjusted_str.split(' ')
+    word_list = get_words(source_text)
 
     # count occurrence of strings:
     word_dict = {}
@@ -21,6 +11,20 @@ def histogram(source_text):
     if '' in word_dict:
         del word_dict['']
     return word_dict
+
+
+def get_words(source_text):
+    my_file = open(source_text, "r")
+    # note: later code will set uppercase char to lowercase
+    aSet = list("abcdefghijklm' nopqrstuvwxyz")
+    adjusted_str = ''
+    for line in my_file:
+        current_line = line.replace("\n", ' ')
+        current_line = current_line.replace('-', ' ')
+        current_line = current_line.lower()
+        adjusted_line = ''.join(ch for ch in current_line if ch in aSet)
+        adjusted_str += adjusted_line
+    return adjusted_str.split(' ')
 
 
 def unique_words(input_histogram):
