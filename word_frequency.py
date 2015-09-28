@@ -1,6 +1,3 @@
-import string
-
-
 def histogram(source_text):
     my_file = open(source_text, "r")
     # note: later code will set uppercase char to lowercase
@@ -38,9 +35,9 @@ def frequency(word, input_histogram):
 
 if __name__ == '__main__':
     my_dict = histogram("poker.txt")
-    print('data: '+str(my_dict))
+    print('data: ' + str(my_dict))
     num_unique = unique_words(my_dict)
-    print("num unique: "+str(num_unique))
+    print("num unique: " + str(num_unique))
     tested_word = "played"
     frequency_result = frequency(tested_word, my_dict)
-    print(tested_word+": "+str(frequency_result))
+    print(tested_word + ": " + str(frequency_result))
