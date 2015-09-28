@@ -13,19 +13,22 @@ def anagram_generator(word):
 
 def retrieve_str_combinations(input_str):
     if input_str == "":
-        return ""
+        return []
     if len(input_str) == 1:
-        return input_str
+        return [input_str]
     input_list = list(input_str)
     recursive_list = []
     for idx, val in enumerate(input_list):
         temp_list = input_list[:]
         first_letter = input_list[idx]
         del temp_list[idx]
-        print(first_letter+" joins "+str(temp_list))
-        temp_word = first_letter + "".join(temp_list)
-        print("result "+temp_word)
-        recursive_list.append(temp_word)
+        remainder = "".join(temp_list)
+        temp_word = first_letter + remainder
+        # next, iterate through temp_word
+        inner_list = retrieve_str_combinations(remainder)
+        for each_inner in inner_list:
+            inner_word = first_letter + each_inner
+            recursive_list.append(inner_word)
     return recursive_list
 
 
