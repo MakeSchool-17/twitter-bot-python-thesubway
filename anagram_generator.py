@@ -17,14 +17,14 @@ def retrieve_str_combinations(input_str):
     if len(input_str) == 1:
         return input_str
     input_list = list(input_str)
-    print(input_list)
     recursive_list = []
     for idx, val in enumerate(input_list):
         temp_list = input_list[:]
-        print(temp_list)
         first_letter = input_list[idx]
         del temp_list[idx]
-        temp_word = first_letter.join(temp_list)
+        print(first_letter+" joins "+str(temp_list))
+        temp_word = first_letter + "".join(temp_list)
+        print("result "+temp_word)
         recursive_list.append(temp_word)
     return recursive_list
 
