@@ -1,4 +1,4 @@
-def remove_new_linebrk(input_str):
+def remove_linebrk(input_str):
     final_arr = input_str.splitlines()
     final_str = "".join(final_arr)
     return final_str
