@@ -24,7 +24,9 @@ def get_words(source_text):
         current_line = current_line.lower()
         adjusted_line = ''.join(ch for ch in current_line if ch in aSet)
         adjusted_str += adjusted_line
-    return adjusted_str.split(' ')
+    final_arr = adjusted_str.split(' ')
+    final_arr.remove('')
+    return final_arr
 
 
 def unique_words(input_histogram):

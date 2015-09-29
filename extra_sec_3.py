@@ -15,7 +15,6 @@ def read_histogram(file_name):
 
 def histogram_tuples(source_text):
     word_list = word_frequency.get_words(source_text)
-    word_list.remove('')
     word_list.sort()
     word_tuple = ([], [])
     for idx, each_str in enumerate(word_list):
@@ -27,8 +26,7 @@ def histogram_tuples(source_text):
         else:
             list_left.append(each_str)
             list_right.append(1)
-    print(word_tuple[0])
-    print("and")
-    print(word_tuple[1])
+    return word_tuple
 if __name__ == '__main__':
-    histogram_tuples((sys.argv[1]))
+    tuple_ans = histogram_tuples((sys.argv[1]))
+    print(tuple_ans)
