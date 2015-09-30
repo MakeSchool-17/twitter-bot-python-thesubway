@@ -70,7 +70,17 @@ class Linked_List:
 
 
 def print_node(node):
-    print("value: " + str(node.value))
+    print("Node: " + str(node.value))
+
+
+def print_linked_list(linked_list):
+    current_node = linked_list.head
+    print("Linked List:")
+    if current_node is None:
+        print("0 Nodes")
+    while current_node is not None:
+        print_node(current_node)
+        current_node = current_node.next_node
 
 if __name__ == '__main__':
     my_node1 = Node(("one", 1))
@@ -82,8 +92,5 @@ if __name__ == '__main__':
     my_node2.add_node(my_node3)
     my_ll1.unshift(my_node1)
     my_node1.add_node(my_node4)
-    print_node(my_node1)
-    print_node(my_node1.next_node)
-    print_node(my_node1.next_node.next_node)
-    print_node(my_node1.next_node.next_node.next_node)
-    print(my_ll1.find_node_tuple("three").value[0])
+    print_linked_list(my_ll1)
+    # print(my_ll1.find_node_tuple("three").value[0])
