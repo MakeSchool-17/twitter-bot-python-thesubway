@@ -16,17 +16,32 @@ def read_histogram(file_name):
 def histogram_tuples(source_text):
     word_list = word_frequency.get_words(source_text)
     word_list.sort()
-    word_tuple = ([], [])
+    tuple_arr = []
     for idx, each_str in enumerate(word_list):
-        list_left = word_tuple[0]
-        list_right = word_tuple[1]
-        if each_str in list_left:
-            if each_str == word_list[idx - 1]:
-                list_right[-1] += 1
+        # search list for tuples with 0th element == each_str
+        existing_idx = None
+        for inner_idx, each_tuple in enumerate(tuple_arr):
+            if each_tuple[0] == each_str:
+                existing_idx = inner_idx
+                break
+        if existing_idx is not None:
+            old_tuple = tuple_arr[existing_idx]
+            new_tuple = (old_tuple[0], old_tuple[1] + 1)
+            tuple_arr[existing_idx] = new_tuple
         else:
-            list_left.append(each_str)
-            list_right.append(1)
-    return word_tuple
+            new_tuple = (each_str, 1)
+            tuple_arr.append(new_tuple)
+    return tuple_arr
+
+
+def frequency_tuples(word, input_histogram):
+    for each_tuple in input_histogram:
+        if each_tuple[0] == word:
+            return each_tuple[1]
+            break
+    return 0
 if __name__ == '__main__':
     tuple_ans = histogram_tuples((sys.argv[1]))
-    print(tuple_ans)
+    # print(tuple_ans)
+    print(len(tuple_ans))
+    print(frequency_tuples('the', tuple_ans))
