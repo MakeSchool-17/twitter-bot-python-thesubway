@@ -21,23 +21,28 @@ class Node:
 
 
 class Linked_List:
-    temp = ""
-    head = None
-    tail = None
 
     def __init__(self, head_node):
         self.head = head_node
         self.tail = head_node
         head_node.head = head_node
 
+    def append(self, new_node):
+        if self.tail.next_node is not None:
+            current_node = self.tail
+            while (current_node.next_node is not None):
+                current_node = current_node.next_node
+            self.tail = current_node
+        self.tail.add_node(new_node)
+        self.tail = new_node
 
 if __name__ == '__main__':
     my_node1 = Node(1, None, None)
     my_ll1 = Linked_List(my_node1)
     my_node3 = Node(3, None, None)
     my_node2 = Node(2, None, None)
-    my_node1.add_node(my_node3)
     my_node1.add_node(my_node2)
+    my_ll1.append(my_node3)
     print(my_node1.value)
     print(my_node1.next_node.value)
     print(my_node1.next_node.next_node.value)
