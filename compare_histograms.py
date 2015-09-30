@@ -1,4 +1,8 @@
 from linked_list import *
+import timeit
+import dan_hoang_helper
+import extra_sec_3
+import word_frequency
 
 
 def histogram(source_text):
@@ -46,11 +50,26 @@ def frequency(word, input_histogram):
     else:
         return 0
 
+
+def time_function(num_times, function_name, word, input_histogram):
+    start_time = timeit.default_timer()
+    dan_hoang_helper.test_results_parameter(num_times, function_name, word, input_histogram)
+    elapsed = timeit.default_timer() - start_time
+    print("time: " + str(elapsed))
+
+
+def time_many_funcs(num_times, word, list_histograms, list_funcs):
+    for idx, each_function in enumerate(list_funcs):
+        time_function(num_times, each_function, word, list_histograms[idx])
+
 if __name__ == '__main__':
-    my_dict = histogram("poker.txt")
-    print_linked_list(my_dict)
-    num_unique = unique_words(my_dict)
-    print("num unique: " + str(num_unique))
-    tested_word = "played"
-    frequency_result = frequency(tested_word, my_dict)
-    print(tested_word + ": " + str(frequency_result))
+    histogram_linked_list = histogram("poker.txt")
+    frequency_linked = frequency
+    histogram_tuples = extra_sec_3.histogram_tuples("poker.txt")
+    frequency_tuples = extra_sec_3.frequency_tuples
+    histogram_dict = word_frequency.histogram("poker.txt")
+    frequency_dict = word_frequency.frequency
+
+    three_functions = [frequency_linked, frequency_tuples, frequency_dict]
+    three_hgrms = [histogram_linked_list, histogram_tuples, histogram_dict]
+    time_many_funcs(5000, 'not_exist', three_hgrms, three_functions)
