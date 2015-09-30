@@ -23,6 +23,7 @@ class Linked_List:
     def __init__(self):
         self.head = None
         self.tail = None
+        self.length = 0
 
     def set_head(self, head_node):
         self.head = head_node
@@ -36,6 +37,7 @@ class Linked_List:
                 self.update_tail()
             self.tail.add_node(new_node)
             self.tail = new_node
+        self.length += 1
 
     def unshift(self, new_node):
         if self.head is None:
@@ -45,6 +47,7 @@ class Linked_List:
             temp = self.head
             self.head = new_node
             new_node.add_node(temp)
+        self.length += 1
 
     def update_tail(self):
         current_node = self.tail
@@ -93,4 +96,5 @@ if __name__ == '__main__':
     my_ll1.unshift(my_node1)
     my_node1.add_node(my_node4)
     print_linked_list(my_ll1)
+    print("length is: " + str(my_ll1.length))
     # print(my_ll1.find_node_tuple("three").value[0])

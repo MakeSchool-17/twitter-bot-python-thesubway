@@ -10,11 +10,12 @@ def histogram(source_text):
         # if each_str in word_dict:
         each_node = word_data_struct.find_node_tuple(each_str)
         if each_node is not None:
-            each_node[1] += 1
+            each_node.value = (each_node.value[0], each_node.value[1] + 1)
         else:
             # word_dict[each_str] = 1
             new_value = (each_str, 1)
             new_node = Node(new_value)
+            word_data_struct.unshift(new_node)
     return word_data_struct
 
 
@@ -35,20 +36,21 @@ def get_words(source_text):
 
 
 def unique_words(input_histogram):
-    return len(input_histogram.keys())
+    return input_histogram.length
 
 
 def frequency(word, input_histogram):
-    if word in input_histogram:
-        return input_histogram[word]
+    result_node = input_histogram.find_node_tuple(word)
+    if result_node is not None:
+        return result_node.value[1]
     else:
         return 0
 
 if __name__ == '__main__':
     my_dict = histogram("poker.txt")
-    print('data: ' + str(my_dict))
-    # num_unique = unique_words(my_dict)
-    # print("num unique: " + str(num_unique))
-    # tested_word = "played"
-    # frequency_result = frequency(tested_word, my_dict)
-    # print(tested_word + ": " + str(frequency_result))
+    print_linked_list(my_dict)
+    num_unique = unique_words(my_dict)
+    print("num unique: " + str(num_unique))
+    tested_word = "played"
+    frequency_result = frequency(tested_word, my_dict)
+    print(tested_word + ": " + str(frequency_result))
