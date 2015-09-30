@@ -29,12 +29,15 @@ class Linked_List:
 
     def append(self, new_node):
         if self.tail.next_node is not None:
-            current_node = self.tail
-            while (current_node.next_node is not None):
-                current_node = current_node.next_node
-            self.tail = current_node
+            self.update_tail()
         self.tail.add_node(new_node)
         self.tail = new_node
+
+    def update_tail(self):
+        current_node = self.tail
+        while (current_node.next_node is not None):
+            current_node = current_node.next_node
+        self.tail = current_node
 
 if __name__ == '__main__':
     my_node1 = Node(1, None, None)
