@@ -17,6 +17,20 @@ class Node:
             self.next_node = new_node
             new_node.add_node(temp)
 
+    def find_node(self, value):
+        if self.value == value:
+            return self
+        if self.next_node is None:
+            return None
+        return self.next_node.find_node(value)
+
+    def find_node_tuple(self, value):
+        if self.value[0] == value:
+            return self
+        if self.next_node is None:
+            return None
+        return self.next_node.find_node_tuple(value)
+
 
 class Linked_List:
 
@@ -52,15 +66,25 @@ class Linked_List:
             current_node = current_node.next_node
         self.tail = current_node
 
+    def find_node(self, value):
+        if self.head is None:
+            return None
+        return self.head.find_node(value)
+
+    def find_node_tuple(self, value):
+        if self.head is None:
+            return None
+        return self.head.find_node_tuple(value)
+
 
 def print_node(node):
     print("value: " + str(node.value))
 
 if __name__ == '__main__':
-    my_node1 = Node(1)
-    my_node3 = Node(3)
-    my_node2 = Node(2)
-    my_node4 = Node(4)
+    my_node1 = Node(("one", 1))
+    my_node3 = Node(("three", 3))
+    my_node2 = Node(("two", 2))
+    my_node4 = Node(("four", 4))
     my_ll1 = Linked_List()
     my_ll1.append(my_node2)
     my_node2.add_node(my_node3)
@@ -70,3 +94,4 @@ if __name__ == '__main__':
     print_node(my_node1.next_node)
     print_node(my_node1.next_node.next_node)
     print_node(my_node1.next_node.next_node.next_node)
+    print(my_ll1.find_node_tuple("one").value[0])
