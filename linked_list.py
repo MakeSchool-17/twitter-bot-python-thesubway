@@ -1,8 +1,8 @@
 class Node:
 
-    def __init__(self, value, next_node):
+    def __init__(self, value):
         self.value = value
-        self.next_node = next_node
+        self.next_node = None
 
     # def set_head(self, input_head):
     #     self.head = input_head
@@ -57,10 +57,10 @@ def print_node(node):
     print("value: " + str(node.value))
 
 if __name__ == '__main__':
-    my_node1 = Node(1, None)
-    my_node3 = Node(3, None)
-    my_node2 = Node(2, None)
-    my_node4 = Node(4, None)
+    my_node1 = Node(1)
+    my_node3 = Node(3)
+    my_node2 = Node(2)
+    my_node4 = Node(4)
     my_ll1 = Linked_List()
     my_ll1.append(my_node2)
     my_node2.add_node(my_node3)
