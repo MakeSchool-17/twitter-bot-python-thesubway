@@ -18,7 +18,11 @@ def histogram(source_text):
 
 def get_words(source_text):
     if isinstance(source_text, list):
-        return source_text
+        new_arr = []
+        print('got to get_words')
+        for each_int in source_text:
+            new_arr.append(str(each_int))
+        return new_arr
     my_file = open(source_text, "r")
     # note: later code will set uppercase char to lowercase
     aSet = list("abcdefghijklm' nopqrstuvwxyz")
