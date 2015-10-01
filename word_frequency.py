@@ -1,3 +1,6 @@
+import types
+
+
 def histogram(source_text):
     word_list = get_words(source_text)
 
@@ -14,6 +17,8 @@ def histogram(source_text):
 
 
 def get_words(source_text):
+    if isinstance(source_text, list):
+        return source_text
     my_file = open(source_text, "r")
     # note: later code will set uppercase char to lowercase
     aSet = list("abcdefghijklm' nopqrstuvwxyz")

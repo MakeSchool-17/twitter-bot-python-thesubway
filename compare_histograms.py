@@ -6,7 +6,7 @@ import word_frequency
 
 
 def histogram(source_text):
-    word_list = get_words(source_text)
+    word_list = word_frequency.get_words(source_text)
 
     # count occurrence of strings:
     word_data_struct = Linked_List()
@@ -74,7 +74,10 @@ def compare_structures_using_file(input_file):
     three_functions = [frequency_linked, frequency_tuples, frequency_dict]
     three_hgrms = [histogram_linked_list, histogram_tuples, histogram_dict]
     three_types = ["linked_list", "tuples", "dictionary"]
-    time_many_funcs(5000, 'loremipsum', three_hgrms, three_functions, three_types)
+    time_many_funcs(20000, 'loremipsum', three_hgrms, three_functions, three_types)
 
 if __name__ == '__main__':
-    compare_structures_using_file("poker.txt")
+    hundred_words = list(range(1, 100))
+    ten_thousand_words = list(range(1, 10000))
+    compare_structures_using_file(hundred_words)
+    compare_structures_using_file(ten_thousand_words)
