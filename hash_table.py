@@ -2,6 +2,7 @@ class HashTable():
     def __init__(self):
         self.key_list = []
         self.value_list = []
+        self.bucket_limit = 10
 
     def index_for_key(self, key):
         for idx, each_key in enumerate(self.key_list):
@@ -17,6 +18,7 @@ class HashTable():
             # so key does not exist:
             self.key_list.append(key)
             self.value_list.append(val)
+            self.check_limit()
         else:
             self.value_list[key_idx] = val
         # how to start with
@@ -38,6 +40,18 @@ class HashTable():
     def values(self):
         return self.value_list
 
+    def check_limit(self):
+        if len(self.value_list) > (self.bucket_limit * 3 / 4):
+            self.bucket_limit *= 2
+
+    def dan_hash(self, input_str):
+        input_arr = list(input_str)
+        hash_val = 0
+        for idx, each_char in enumerate(input_arr):
+            char_val = ord(each_char) * (idx + 1)
+            hash_val += char_val
+        return hash_val
+
 if __name__ == '__main__':
     my_hash = HashTable()
     my_hash.set("one", 1)
@@ -48,3 +62,4 @@ if __name__ == '__main__':
     print(my_hash.get("one"))
     print(my_hash.keys())
     print(my_hash.values())
+    print(my_hash.dan_hash('Test hash'))
