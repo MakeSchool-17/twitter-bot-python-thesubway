@@ -11,11 +11,12 @@ class HashTable():
         return None
 
     def set(self, key, val):
-        # choose a key
-        # check for collision
         key_idx = self.index_for_key(key)
         if key_idx is None:
-            # so key does not exist:
+            # so key does not exist yet
+            hash_val = self.dan_hash(val)
+            bucket_idx = hash_val % self.bucket_limit
+            # check for collision:
             self.key_list.append(key)
             self.value_list.append(val)
             self.check_limit()
