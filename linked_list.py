@@ -49,6 +49,31 @@ class Linked_List:
             new_node.add_node(temp)
         self.length += 1
 
+    # def delete_node(self, old_node):
+    #     if self.head is None:
+    #         return None
+    #     iterate_head = self.head
+    #     previous_node = None
+    #     while iterate_head is not None:
+    #         if iterate_head == old_node:
+    #             # found node. Delete time
+    #             if iterate_head.value == self.head.value:
+    #                 self.head = self.head.next_node
+    #             if iterate_head.value == self.tail.value:
+    #                 self.tail = previous_node
+    #             break
+    #         previous_node = iterate_head
+    #         iterate_head = iterate_head.next_node
+    #     return None
+
+    def remove_head(self):
+        if self.head is None:
+            raise ValueError('LinkedList is empty')
+            return None
+        self.head = self.head.next_node
+        self.length -= 1
+
+
     def update_tail(self):
         current_node = self.tail
         while (current_node.next_node is not None):
