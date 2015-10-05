@@ -39,7 +39,8 @@ class Linked_List:
             self.tail = new_node
         self.length += 1
 
-    def unshift(self, new_node):
+    def unshift(self, value):
+        new_node = Node(value)
         if self.head is None:
             self.head = new_node
             self.tail = new_node
@@ -118,7 +119,7 @@ if __name__ == '__main__':
     my_ll1 = Linked_List()
     my_ll1.append(my_node2)
     my_node2.add_node(my_node3)
-    my_ll1.unshift(my_node1)
+    my_ll1.unshift(my_node1.value)
     my_node1.add_node(my_node4)
     print_linked_list(my_ll1)
     print("length is: " + str(my_ll1.length))
