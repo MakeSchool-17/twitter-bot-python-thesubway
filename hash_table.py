@@ -1,8 +1,12 @@
+from linked_list import *
+
+
 class HashTable():
     def __init__(self):
         self.key_list = []
         self.value_list = []
-        self.bucket_limit = 10
+        self.bucket_limit = 20
+        self.set_up_buckets()
 
     def index_for_key(self, key):
         for idx, each_key in enumerate(self.key_list):
@@ -11,17 +15,18 @@ class HashTable():
         return None
 
     def set(self, key, val):
-        key_idx = self.index_for_key(key)
-        if key_idx is None:
+        hash_val = self.dan_hash(key)
+        bucket_idx = hash_val % self.bucket_limit
+        bucket_ll = self.value_list[bucket_idx]
+        if bucket_ll.length == 0:
             # so key does not exist yet
-            hash_val = self.dan_hash(val)
-            bucket_idx = hash_val % self.bucket_limit
             # check for collision:
             self.key_list.append(key)
-            self.value_list.append(val)
+            bucket_ll.unshift(val)
             self.check_limit()
         else:
-            self.value_list[key_idx] = val
+            existing_node = bucket_ll.find_node(val)
+            existing_node.value = val
         # how to start with
 
     def update(self, key, val):
@@ -44,6 +49,13 @@ class HashTable():
     def check_limit(self):
         if len(self.value_list) > (self.bucket_limit * 3 / 4):
             self.bucket_limit *= 2
+
+    def set_up_buckets(self):
+        new_list = []
+        for each_bucket in range(0, self.bucket_limit):
+            each_linked_list = Linked_List()
+            new_list.append(each_linked_list)
+        self.value_list = new_list
 
     def dan_hash(self, input_str):
         input_arr = list(input_str)
