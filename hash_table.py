@@ -34,11 +34,17 @@ class HashTable():
         # how to start with
 
     def update(self, key, val):
-        key_idx = self.index_for_key(key)
-        if key_idx is None:
-            pass
+        hash_val = self.dan_hash(key)
+        bucket_idx = hash_val % self.bucket_limit
+        bucket_ll = self.value_list[bucket_idx]
+        # search linked_list for tuple with key
+        existing_node = bucket_ll.find_node_tuple(key)
+        if existing_node is None:
+            raise ValueError('Key does not exist')
         else:
-            self.value_list[key_idx] = val
+            # modify node to replace value.
+            key_val_pair = (existing_node.value[0], val)
+            existing_node.value = key_val_pair
 
     def get(self, key):
         hash_val = self.dan_hash(key)
@@ -78,11 +84,13 @@ class HashTable():
         return hash_val
 
     def __str__(self):
-        overall_str = ""
+        overall_str = "HashTable:\n"
         for each_key in self.key_list:
             # print key-val pairs:
-            overall_str += "(" + each_key + ": " + self.get(each_key) + ")"
+            each_val = self.get(each_key)
+            overall_str += "(" + str(each_key) + ": " + str(each_val) + ")"
             overall_str += "\n"
+        return overall_str
 
 if __name__ == '__main__':
     my_hash = HashTable()
@@ -90,8 +98,7 @@ if __name__ == '__main__':
     my_hash.update("one", 11)
     my_hash.set("two", 2)
     my_hash.set("three", 3)
-    my_hash.update("four", 4)  # should do nothing, because "four" does not exist
+    # my_hash.update("four", 4)  # should raise error, because "four" does not exist
     print(my_hash.get("one"))
-    print(my_hash.keys())
-    print(my_hash.values())
+    print(my_hash)
     print(my_hash.dan_hash('Test hash'))
