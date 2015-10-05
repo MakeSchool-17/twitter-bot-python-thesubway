@@ -7,6 +7,7 @@ class HashTable():
         self.value_list = []
         self.bucket_limit = 20
         self.set_up_buckets()
+        self.checking_limit = False
 
     def index_for_key(self, key):
         for idx, each_key in enumerate(self.key_list):
@@ -27,7 +28,8 @@ class HashTable():
             # store a tuple with key and value
             key_val_pair = (key, val)
             bucket_ll.unshift(key_val_pair)
-            self.check_limit()
+            if self.checking_limit == False:
+                self.check_limit()
         else:
             existing_node = bucket_ll.find_node(val)
             existing_node.value = val
@@ -64,16 +66,21 @@ class HashTable():
         return self.value_list
 
     def check_limit(self):
-        if len(self.value_list) > (self.bucket_limit * 3 / 4):
-            # self.bucket_limit *= 2
-            pass
+        self.checking_limit = True
+        if len(self.key_list) > (self.bucket_limit * 3 / 4):
+            self.set_up_buckets()
+        self.checking_limit = False
 
     def set_up_buckets(self):
         new_list = []
+        old_list = self.value_list
         for each_bucket in range(0, self.bucket_limit):
             each_linked_list = Linked_List()
             new_list.append(each_linked_list)
         self.value_list = new_list
+        for idx, each_key in enumerate(old_list):
+            each_val = self.get(each_key)
+            self.set(each_key, each_val)
 
     def dan_hash(self, input_str):
         input_arr = list(input_str)
