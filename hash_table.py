@@ -51,7 +51,11 @@ class HashTable():
 
     def get_from(self, key, val_list):
         hash_val = self.dan_hash(key)
-        bucket_idx = hash_val % self.bucket_limit
+        bucket_idx = hash_val % len(val_list)
+        self.print_length_limit()
+        print("list size before crash: " + str(len(self.value_list)))
+        print("list size before crash: " + str(len(val_list)))
+        print("index: " + str(bucket_idx))
         bucket_ll = val_list[bucket_idx]
         existing_node = bucket_ll.find_node_tuple(key)
         if existing_node is None:
@@ -72,7 +76,10 @@ class HashTable():
 
     def check_limit(self):
         self.checking_limit = True
-        if len(self.key_list) > (self.bucket_limit * 3 / 4):
+        if len(self.key_list) >= (self.bucket_limit * 3 / 4):
+            self.print_length_limit()
+            print('ready to double')
+            self.bucket_limit *= 2
             self.set_up_buckets()
         self.checking_limit = False
 
@@ -84,6 +91,7 @@ class HashTable():
             each_linked_list = Linked_List()
             new_list.append(each_linked_list)
         self.value_list = new_list
+        print("size new list: " + str(len(self.value_list)))
         for idx, each_key in enumerate(old_keys):
             each_val = self.get_from(each_key, old_vals)
             self.set(each_key, each_val)
