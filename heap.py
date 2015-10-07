@@ -42,6 +42,31 @@ class Heap:
         return current_node
         pass
 
+    def __str__(self):
+        lines = []
+        current_row = 0
+        current_nodes = [self.root_node]
+        while True:
+            # use formula for current row
+            # num_elements = 2 ^ current_row
+            next_nodes = []
+            new_row_exists = False
+            for each_node in current_nodes:
+                if each_node is None:
+                    print("here")
+                    next_nodes.append(None)
+                    # next_nodes.append(Node((-1, -1)))
+                else:
+                    next_nodes.append(each_node.left_child)
+                    next_nodes.append(each_node.right_child)
+                    new_row_exists = True
+            if new_row_exists is False:
+                break
+            lines.append(current_nodes)
+            current_nodes = next_nodes
+            current_row += 1
+        return str(lines)
+
 
 class Node:
 
@@ -64,9 +89,14 @@ class Node:
 
 if __name__ == '__main__':
     my_heap = Heap()
-    my_heap.insert(("2", 2))
-    print(my_heap.root_node.value)
     my_heap.insert(("3", 3))
+    print(my_heap.root_node.value)
+    my_heap.insert(("5", 5))
     my_heap.insert(("1", 1))
+    my_heap.insert(("2", 2))
+    my_heap.insert(("4", 4))
     print(my_heap.root_node.left_child.value)
     print(my_heap.root_node.right_child.value)
+    print(my_heap.root_node.right_child.left_child.value)
+    print(my_heap.root_node.left_child.right_child.value)
+    print(my_heap)
