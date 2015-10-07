@@ -9,10 +9,24 @@ class Heap:
 
     def insert(self, value):
         new_node = Node(value)
+        if self.root_node is None:
+            self.root_node = new_node
+            return self.root_node
         current_node = self.root_node
         while current_node is not None:
-            # current_node = current_node.left_child
-            pass
+            if current_node.value[0] == value[0]:
+                current_node.value = (current_node.value[0], current_node.value[1] + 1)
+                return None
+            elif value > current_node.value:
+                if current_node.left_child is None:
+                    current_node.left_child = new_node
+                    return new_node
+                current_node = current_node.left_child
+            else:
+                if current_node.right_child is None:
+                    current_node.right_child = new_node
+                    return new_node
+                current_node = current_node.right_child
         return current_node
         self.num_nodes += 1
 
@@ -21,10 +35,10 @@ class Heap:
         while current_node is not None:
             if current_node.value == value:
                 return current_node
-            if current_node.value < value:
-                current_node = current_node.left_child
-            else:
+            if value > current_node.value:
                 current_node = current_node.right_child
+            else:
+                current_node = current_node.left_child
         return current_node
         pass
 
@@ -50,5 +64,9 @@ class Node:
 
 if __name__ == '__main__':
     my_heap = Heap()
-    my_heap.insert(1)
+    my_heap.insert(("2", 2))
     print(my_heap.root_node.value)
+    my_heap.insert(("3", 3))
+    my_heap.insert(("1", 1))
+    print(my_heap.root_node.left_child.value)
+    print(my_heap.root_node.right_child.value)
