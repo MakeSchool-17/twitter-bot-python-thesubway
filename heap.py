@@ -11,21 +11,20 @@ class Heap:
         new_node = Node(value)
         current_node = self.root_node
         while current_node is not None:
-            current_node = current_node.left_child
+            # current_node = current_node.left_child
             pass
         return current_node
-        # if self.root_node is None:
-        #     self.root_node = Node(value)
-        # else:
-        #     if value < self.root_node:
-        #         self.root_node.add_child(new_node)
-        # self.num_nodes += 1
+        self.num_nodes += 1
 
     def search(self, value):
         current_node = self.root_node
         while current_node is not None:
-            current_node = current_node.left_child
-            pass
+            if current_node.value == value:
+                return current_node
+            if current_node.value < value:
+                current_node = current_node.left_child
+            else:
+                current_node = current_node.right_child
         return current_node
         pass
 
