@@ -1,3 +1,6 @@
+import math
+
+
 class Heap:
 
     def __init__(self):
@@ -65,12 +68,17 @@ class Heap:
             current_nodes = next_nodes
             current_row += 1
         final_str = "Heap:\n"
+        size_of_final_row = math.pow(2, current_row)
+        print("current_row: " + str(size_of_final_row))
         for idx, each_arr in enumerate(lines):
+            size_of_current_row = math.pow(2, idx)
+            multiplier = int(size_of_final_row / size_of_current_row)
+            space_amount = "   " * (multiplier - 1)
             for each_node in each_arr:
                 if each_node is None:
-                    final_str += "( ,  )\t"
+                    final_str += space_amount + "( ,  ) "
                 else:
-                    final_str += "({0}: {1})\t".format(each_node.value[0], each_node.value[1])
+                    final_str += space_amount + "({0}:{1}) ".format(each_node.value[0], each_node.value[1])
             final_str += "\n"
         return final_str
 
@@ -96,12 +104,12 @@ class Node:
 
 if __name__ == '__main__':
     my_heap = Heap()
-    my_heap.insert(("3", 3))
+    my_heap.insert(("03", "03"))
     print(my_heap.root_node.value)
-    my_heap.insert(("5", 5))
-    my_heap.insert(("1", 1))
-    my_heap.insert(("2", 2))
-    my_heap.insert(("4", 4))
+    my_heap.insert(("05", "05"))
+    my_heap.insert(("01", "01"))
+    my_heap.insert(("02", "02"))
+    my_heap.insert(("04", "04"))
     print(my_heap.root_node.left_child.value)
     print(my_heap.root_node.right_child.value)
     print(my_heap.root_node.right_child.left_child.value)
