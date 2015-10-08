@@ -53,7 +53,6 @@ class Heap:
             new_row_exists = False
             for each_node in current_nodes:
                 if each_node is None:
-                    print("here")
                     next_nodes.append(None)
                     # next_nodes.append(Node((-1, -1)))
                 else:
@@ -65,7 +64,15 @@ class Heap:
             lines.append(current_nodes)
             current_nodes = next_nodes
             current_row += 1
-        return str(lines)
+        final_str = "Heap:\n"
+        for idx, each_arr in enumerate(lines):
+            for each_node in each_arr:
+                if each_node is None:
+                    final_str += "( ,  )\t"
+                else:
+                    final_str += "({0}: {1})\t".format(each_node.value[0], each_node.value[1])
+            final_str += "\n"
+        return final_str
 
 
 class Node:
@@ -99,4 +106,5 @@ if __name__ == '__main__':
     print(my_heap.root_node.right_child.value)
     print(my_heap.root_node.right_child.left_child.value)
     print(my_heap.root_node.left_child.right_child.value)
+    print("")
     print(my_heap)
