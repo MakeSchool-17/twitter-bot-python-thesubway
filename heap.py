@@ -50,6 +50,38 @@ class Heap:
         self.nodes[0], self.nodes[-1] = self.nodes[-1], self.nodes[0]
         del self.nodes[-1]
         # now swap with largest child
+        idx = 0
+        while True:
+            go_left = False
+            current_node = self.nodes[idx]
+            if self.number_children(idx) == 0:
+                return self.nodes[idx]
+            if self.number_children(idx) == 1:
+                if self.nodes[idx * 2 + 1].value[1] > self.nodes[idx].value[1]:
+                    self.nodes[idx * 2 + 1], self.nodes[idx] = self.nodes[idx], self.nodes[idx * 2 + 1]
+                    go_left = True
+                else:
+                    return self.nodes[idx]
+            else:
+                left_child = self.nodes[idx * 2 + 1]
+                right_child = self.nodes[idx * 2 + 2]
+                left_higher = (left_child.value[1] > current_node.value[1])
+                right_higher = (right_child.value[1] > current_node.value[1])
+                if left_higher is True and right_higher is True:
+                    if (left_child.value[1] >= right_child.value[1]):
+                        self.nodes[idx * 2 + 1], self.nodes[idx] = self.nodes[idx], self.nodes[idx * 2 + 1]
+                        go_left = True
+                    else:
+                        self.nodes[idx * 2 + 2], self.nodes[idx] = self.nodes[idx], self.nodes[idx * 2 + 2]
+                        go_left = False
+                elif left_higher is True and right_higher is False:
+                    self.nodes[idx * 2 + 1], self.nodes[idx] = self.nodes[idx], self.nodes[idx * 2 + 1]
+                    go_left = True
+                elif left_higher is False and right_higher is True:
+                    self.nodes[idx * 2 + 2], self.nodes[idx] = self.nodes[idx], self.nodes[idx * 2 + 2]
+                    go_left = False
+                else:
+                    return self.nodes[idx]
 
     def number_children(self, idx):
         if (idx < len(self.nodes) is False):
@@ -92,18 +124,15 @@ class Node:
 
 if __name__ == '__main__':
     my_heap = Heap()
-    my_heap.insert(("03", 3))
-    # print(my_heap.nodes[0])
+    my_heap.insert(("07", 7))
     my_heap.insert(("05", 5))
     my_heap.insert(("01", 1))
+    my_heap.insert(("03", 3))
     my_heap.insert(("02", 2))
     my_heap.insert(("04", 4))
     my_heap.insert(("06", 6))
-    my_heap.insert(("07", 7))
     my_heap.delete_max()
     print(str(my_heap))
-    print(my_heap.number_children(2))
-    print(my_heap.number_children(3))
     # print(my_heap.root_node.left_child.value)
     # print(my_heap.root_node.right_child.value)
     # print(my_heap.root_node.right_child.left_child.value)
