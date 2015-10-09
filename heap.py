@@ -47,11 +47,19 @@ class Heap:
         if len(self.nodes) == 1:
             del self.nodes[0]
             return
-        temp_node = self.nodes[0]
-        self.nodes[0] = self.nodes[-1]
-        self.nodes[-1] = temp_node
+        self.nodes[0], self.nodes[-1] = self.nodes[-1], self.nodes[0]
         del self.nodes[-1]
         # now swap with largest child
+
+    def number_children(self, idx):
+        if (idx < len(self.nodes) is False):
+            raise ValueError('Node does not exist at index: ' + str(idx))
+            return None
+        if (idx * 2 + 1) >= len(self.nodes):
+            return 0
+        if (idx * 2 + 2) >= len(self.nodes):
+            return 1
+        return 2
 
     def __str__(self):
         final_str = ""
@@ -94,6 +102,8 @@ if __name__ == '__main__':
     my_heap.insert(("07", 7))
     my_heap.delete_max()
     print(str(my_heap))
+    print(my_heap.number_children(2))
+    print(my_heap.number_children(3))
     # print(my_heap.root_node.left_child.value)
     # print(my_heap.root_node.right_child.value)
     # print(my_heap.root_node.right_child.left_child.value)
