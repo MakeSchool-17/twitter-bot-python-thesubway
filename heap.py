@@ -1,6 +1,3 @@
-import math
-
-
 class Heap:
 
     def __init__(self):
@@ -15,8 +12,6 @@ class Heap:
         parent_index = int((new_index - 1) / 2)
         self.nodes.append(new_node)
         while new_index >= 1:
-            print("test")
-            print("{0} {1}".format(new_index, parent_index))
             if self.nodes[new_index].value[1] > self.nodes[parent_index].value[1]:
                 # switch the new_node and parent_node
                 temp_node = self.nodes[parent_index]
@@ -25,12 +20,8 @@ class Heap:
             else:
                 break
             # increment everything for next loop:
-            print("got here")
             new_index = parent_index
-            print("new child: " + str(new_index))
-            print("old parent: " + str(parent_index))
             parent_index = int((parent_index - 1) / 2)
-            print("new parent: " + str((parent_index - 1) / 2))
 
     def search(self, value):
         if len(self.nodes) is 0:
@@ -49,14 +40,24 @@ class Heap:
                 idx = 2 * (idx) + 2
         return None
 
+    def delete_max(self):
+        if len(self.nodes) == 0:
+            raise ValueError('Heap is empty')
+            return
+        if len(self.nodes) == 1:
+            del self.nodes[0]
+            return
+        temp_node = self.nodes[0]
+        self.nodes[0] = self.nodes[-1]
+        self.nodes[-1] = temp_node
+        del self.nodes[-1]
+        # now swap with largest child
+
     def __str__(self):
         final_str = ""
         for each_node in self.nodes:
             final_str += str(each_node)
         return final_str
-
-    def delete_max(self):
-        pass
 
 
 class Node:
@@ -91,6 +92,7 @@ if __name__ == '__main__':
     my_heap.insert(("04", 4))
     my_heap.insert(("06", 6))
     my_heap.insert(("07", 7))
+    my_heap.delete_max()
     print(str(my_heap))
     # print(my_heap.root_node.left_child.value)
     # print(my_heap.root_node.right_child.value)
