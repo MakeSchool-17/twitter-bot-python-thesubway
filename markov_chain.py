@@ -58,6 +58,12 @@ class Token:
             del word_dict['']
         self.inner_stochastic = word_dict
 
+    def __str__(self):
+        return str(self.count)
+
 if __name__ == '__main__':
     my_arr = make_words("meaning_of_good.txt")
-    print(histogram(my_arr))
+    my_histgrm = histogram(my_arr)
+    for key in my_histgrm:
+        token = my_histgrm[key]
+        print("{0}:  {1}, ".format(key, str(token)))
