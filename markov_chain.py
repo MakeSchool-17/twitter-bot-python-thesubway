@@ -1,4 +1,5 @@
 import re
+import random
 
 
 def make_words(source_text):
@@ -43,6 +44,23 @@ def histogram(word_list):
     return word_dict
 
 
+def generate_message(markov_histogram):
+    current_key = random.choice(list(markov_histogram.keys()))
+    sentence_done = False
+    sentence_arr = []
+    # while sentence_done is False:
+    #     current_token = markov_histogram[current_key]
+    #     current_word = current_token.name
+    #     sentence_arr.append(current_word)
+    #     if current_word[-1:] not in list("abcdefghijklmnopqrstuvwxyz"):
+    #         sentence_done = True
+    #     if len(sentence_arr) < 5:
+    #         # keep going
+    #         sentence_done = False
+    # return "".join(sentence_arr)
+    return markov_histogram[current_key].name
+
+
 class Token:
 
     def __init__(self):
@@ -68,7 +86,9 @@ class Token:
 if __name__ == '__main__':
     my_arr = make_words("meaning_of_good.txt")
     my_histgrm = histogram(my_arr)
-    for idx, key in enumerate(my_histgrm):
-        if idx < 10:
-            token = my_histgrm[key]
-            print("{0}: {1}, ".format(key, token.inner_stochastic))
+    my_message = generate_message(my_histgrm)
+    print(my_message)
+    # for idx, key in enumerate(my_histgrm):
+    #     if idx < 10:
+    #         token = my_histgrm[key]
+    #         print("{0}: {1}, ".format(key, token.inner_stochastic))
