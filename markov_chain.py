@@ -13,7 +13,12 @@ def make_words(source_text):
         # current_line = current_line.lower()
         # .,:?!- are allowed
         adjusted_line = ''.join(ch for ch in current_line if ch not in unwanted_punctuation)
-        arr_str += re.split('\s+', adjusted_line)
+        line_arr = re.split('\s+', adjusted_line)
+        if line_arr[-1] == '':
+            del line_arr[-1]
+        if line_arr[0] == '':
+            del line_arr[0]
+        arr_str += line_arr
     token_list = arr_str
     return token_list
 
@@ -35,8 +40,6 @@ def histogram(word_list):
             word_dict[each_str] = token
         if next_word is not None:
             token.followed_words.append(next_word)
-    if '' in word_dict:
-        del word_dict['']
     for key in word_dict:
         # tell token to update its inner_stochastic property:
         token = word_dict[key]
@@ -96,9 +99,9 @@ class Token:
 if __name__ == '__main__':
     my_arr = make_words("meaning_of_good.txt")
     my_histgrm = histogram(my_arr)
-    my_message = generate_message(my_histgrm)
-    print(my_message)
     # for idx, key in enumerate(my_histgrm):
     #     if idx < 10:
     #         token = my_histgrm[key]
     #         print("{0}: {1}, ".format(key, token.inner_stochastic))
+    my_message = generate_message(my_histgrm)
+    print(my_message)
