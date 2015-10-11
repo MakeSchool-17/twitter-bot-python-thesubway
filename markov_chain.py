@@ -47,18 +47,28 @@ def histogram(word_list):
 def generate_message(markov_histogram):
     current_key = random.choice(list(markov_histogram.keys()))
     sentence_done = False
-    sentence_arr = []
-    # while sentence_done is False:
-    #     current_token = markov_histogram[current_key]
-    #     current_word = current_token.name
-    #     sentence_arr.append(current_word)
-    #     if current_word[-1:] not in list("abcdefghijklmnopqrstuvwxyz"):
-    #         sentence_done = True
-    #     if len(sentence_arr) < 5:
-    #         # keep going
-    #         sentence_done = False
-    # return "".join(sentence_arr)
-    return markov_histogram[current_key].name
+    sentence = ""
+    num_words = 0
+    while True:
+        current_token = markov_histogram[current_key]
+        current_word = current_token.name
+        sentence += current_word
+        num_words += 1
+        if current_word[-1:] in list("."):
+            sentence_done = True
+        if num_words < 5:
+            # keep going
+            sentence_done = False
+        elif num_words > 100:
+            sentence_done = True
+        if len(current_token.inner_stochastic) == 0:
+            sentence_done = True
+        if sentence_done is True:
+            break
+        sentence += " "
+        next_key = random.choice(list(current_token.inner_stochastic.keys()))
+        current_key = next_key
+    return sentence
 
 
 class Token:
