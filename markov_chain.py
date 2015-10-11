@@ -1,12 +1,6 @@
 import re
 
 
-class Token:
-
-    def __init__(self):
-        self.next = None
-
-
 def make_words(source_text):
     my_file = open(source_text, "r")
     # keep sentence-ending punctuation
@@ -26,13 +20,43 @@ def make_words(source_text):
 def histogram(word_list):
     word_dict = {}
     for idx, each_str in enumerate(word_list):
+        next_word = None
+        token = None
+        if idx + 1 < len(word_list):
+            next_word = word_list[idx + 1]
         if each_str in word_dict:
-            word_dict[each_str] += 1
+            token = word_dict[each_str]
+            token.count += 1
         else:
-            word_dict[each_str] = 1
+            token = Token()
+            token.count = 1
+            token.name = each_str
+            word_dict[each_str] = token
+        if next_word is not None:
+            token.followed_words.append(next_word)
     if '' in word_dict:
         del word_dict['']
     return word_dict
+
+
+class Token:
+
+    def __init__(self):
+        self.count = None
+        self.name = None
+        self.followed_words = []
+        self.inner_stochastic = {}
+
+    def stochastic_sample(self):
+        word_dict = {}
+        for idx, each_str in enumerate(self.followed_words):
+            if each_str in word_dict:
+                word_dict[each_str] += 1
+            else:
+                word_dict[each_str] = 1
+        if '' in word_dict:
+            del word_dict['']
+        self.inner_stochastic = word_dict
 
 if __name__ == '__main__':
     my_arr = make_words("meaning_of_good.txt")
