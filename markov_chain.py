@@ -36,6 +36,10 @@ def histogram(word_list):
             token.followed_words.append(next_word)
     if '' in word_dict:
         del word_dict['']
+    for key in word_dict:
+        # tell token to update its inner_stochastic property:
+        token = word_dict[key]
+        token.stochastic_sample()
     return word_dict
 
 
@@ -64,6 +68,7 @@ class Token:
 if __name__ == '__main__':
     my_arr = make_words("meaning_of_good.txt")
     my_histgrm = histogram(my_arr)
-    for key in my_histgrm:
-        token = my_histgrm[key]
-        print("{0}:  {1}, ".format(key, str(token)))
+    for idx, key in enumerate(my_histgrm):
+        if idx < 10:
+            token = my_histgrm[key]
+            print("{0}: {1}, ".format(key, token.inner_stochastic))
